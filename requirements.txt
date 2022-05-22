@@ -27,6 +27,7 @@ boto3
 #System HOST
 PyOpenSSL
 python-dotenv
+python-memcached
 
 #Ecommerce
 braintree
