@@ -28,6 +28,7 @@ boto3
 PyOpenSSL
 python-dotenv
 djangorestframework
+python-memcached
 
 #Ecommerce
 braintree
