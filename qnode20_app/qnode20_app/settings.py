@@ -38,7 +38,9 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'baton',
-    #'account',
+    'account',
+    'courses',
+   
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,7 +80,12 @@ INSTALLED_APPS = [
     'storages',
     'social_django',
     'sorl.thumbnail',
+    'students',
+    'embed_video',
+    'actions',
     'baton.autodiscover',   
+    'memcache_status',
+    'rest_framework'
 ]
 
 
@@ -87,12 +94,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'qnode20_app.urls'
@@ -111,6 +119,13 @@ GA_VIEW_ID = os.environ.get('GA_VIEW_ID_ENV')
 
 WAGTAIL_SITE_NAME = 'Smart Business Media'
 
+#RESTFRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+ 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 #Redis Setup
 
 
@@ -124,9 +139,9 @@ REDIS_DB =os.environ.get('REDIS_DB')
 
 #LOGINGS REDIRECT
 
-#LOGIN_REDIRECT_URL = 'dashboard'
-#LOGIN_URL = 'login'
-#LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 BATON = {
     'SITE_HEADER': 'SmartQuail',
@@ -284,6 +299,17 @@ if DB_IS_AVIAL and POSTGRES_READY:
     }
 }
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = 'qnode20_app'
 
 
 
