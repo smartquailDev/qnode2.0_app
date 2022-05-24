@@ -27,8 +27,13 @@ boto3
 #System HOST
 PyOpenSSL
 python-dotenv
-python-memcached
+djangorestframework
 
 #Ecommerce
 braintree
 weasyprint
+
+#Eduaction
+django-braces
+django-embed-video
+django-memcache-status
